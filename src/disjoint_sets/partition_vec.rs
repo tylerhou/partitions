@@ -282,12 +282,12 @@ impl<T> PartitionVec<T> {
     /// assert!(partition_vec.len_of_set(3) == 3);
     /// # }
     /// ```
-    pub fn union(&mut self, first_index: usize, second_index: usize) {
+    pub fn union(&mut self, first_index: usize, second_index: usize) -> bool {
         let i = self.find(first_index);
         let j = self.find(second_index);
 
         if i == j {
-            return;
+            return false;
         }
 
         // We swap the values of the links.
@@ -311,6 +311,8 @@ impl<T> PartitionVec<T> {
                 self.meta[j].set_parent(i);
             }
         }
+
+        return true;
     }
 
     /// Returns `true` if `first_index` and `second_index` are in the same set.
